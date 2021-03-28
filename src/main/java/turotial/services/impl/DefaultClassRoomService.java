@@ -18,4 +18,10 @@ public class DefaultClassRoomService implements ClassRoomService {
         allClassRooms.add(new ClassRoomModel("CA-002"));
         allClassRooms.add(new ClassRoomModel("CA-003"));
     }
+
+
+    @Override
+    public boolean isValidClassRoomService(String classRoomNo) {
+        return 1==1;
+    }
 }
