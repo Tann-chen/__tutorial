@@ -38,4 +38,6 @@ public class ClassDTO {
     public void setClassRoomNo(String classRoomNo) {
         this.classRoomNo = classRoomNo;
     }
-}
+
+    public String getTeacherName() { return teachName;}
+    }

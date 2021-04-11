@@ -6,6 +6,7 @@ import turotial.services.ClassRoomService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component("defaultClassRoomService")
 public class DefaultClassRoomService implements ClassRoomService {
@@ -21,7 +22,19 @@ public class DefaultClassRoomService implements ClassRoomService {
 
 
     @Override
-    public boolean isValidClassRoomService(String classRoomNo) {
-        return 1==1;
+    public boolean isValidClassRoomService(final String classRoomNo) {
+        return allClassRooms
+                .stream()
+                .anyMatch(classroom->classroom.getClassRoomNo().equals(classRoomNo));
     }
+
+    @Override
+    public Optional<ClassRoomModel> getClassRoomByNo(final String classRoomNo) {
+        return allClassRooms
+                .stream()
+                .filter(classroom->classroom.getClassRoomNo().equals(classRoomNo))
+                .findFirst();
+    }
+
+
 }
