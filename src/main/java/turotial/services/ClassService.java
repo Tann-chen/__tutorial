@@ -1,18 +1,21 @@
 package turotial.services;
 
+import turotial.NoFoundException;
 import turotial.dtos.ClassDTO;
 import turotial.models.ClassModel;
 
 public interface ClassService {
-    ClassModel recordClass(ClassDTO classDTO);
+    ClassModel addClass(ClassDTO classDTO);
 
-    ClassStatus getClassStatus(String classId);
+    ClassModel getClassById(String classId);
 
-    void closeClass(String classId);
+    void closeClass(String classId) throws NoFoundException;
 
     boolean isValidClass(String classId);
 
+    void deleteClassById(String classId) throws NoFoundException;
+
     enum ClassStatus {
-        IN_PROCESS, CLOSED
+        READY,IN_PROCESS, CLOSED
     }
 }

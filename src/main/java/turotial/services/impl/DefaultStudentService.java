@@ -6,6 +6,7 @@ import turotial.services.StudentService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DefaultStudentService implements StudentService {
@@ -18,5 +19,20 @@ public class DefaultStudentService implements StudentService {
         allStudents.add(new StudentModel("wangwu"));
         allStudents.add(new StudentModel("zhaoliu"));
         allStudents.add(new StudentModel("chenqi"));
+    }
+
+    @Override
+    public Optional<StudentModel> getStudentByName(String studentName) {
+        return allStudents
+                .stream()
+                .filter(student->student.getName().equals(studentName))
+                .findFirst();
+    }
+
+    @Override
+    public boolean isValidStudent(String studentName) {
+        return allStudents
+                .stream()
+                .anyMatch(student->student.getName().equals(studentName));
     }
 }

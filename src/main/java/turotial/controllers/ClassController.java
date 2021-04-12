@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import turotial.NoFoundException;
 import turotial.dtos.ClassDTO;
 import turotial.models.ClassModel;
 import turotial.services.ClassRoomService;
@@ -42,25 +43,27 @@ public class ClassController {
 
 
     @RequestMapping(value = "/{name}", method = RequestMethod.POST)   // HandlerAdaptor
-    public ResponseEntity<String> startClass(@RequestBody @Valid final ClassDTO classData, final BindingResult bindingResult) {
+    public ResponseEntity<String> createClass(@RequestBody @Valid final ClassDTO classData, final BindingResult bindingResult) {
         if (bindingResult.hasErrors() || !checkClassDataValidation(classData)) {
             return ResponseEntity.badRequest().build(); //400 at response header
         }
 
-        final ClassModel classRecord = classService.recordClass(classData);
+        final ClassModel classRecord = classService.addClass(classData);
 
         return ResponseEntity.ok().body(classRecord.getClassId());
     }
 
     // RESTFUL API
     @RequestMapping(value = "/{classId}", method = RequestMethod.GET)
-    public ResponseEntity<String> getClassStatus(@PathVariable(name = "classId") final String classId) {
+    public ResponseEntity<ClassModel> getClassStatus(@PathVariable(name = "classId") final String classId) {
         //TODO: implement
+        return ResponseEntity.ok().body(classService.getClassById(classId));
     }
 
     @RequestMapping(value = "/{classId}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteClass(@PathVariable(name = "classId") final String classId) {
+    public ResponseEntity deleteClass(@PathVariable(name = "classId") final String classId) throws NoFoundException {
         //TODO: implement
+        return ResponseEntity.ok().body(classService.deleteClassById(classId));
     }
 
 
