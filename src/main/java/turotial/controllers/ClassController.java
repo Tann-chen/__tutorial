@@ -42,7 +42,7 @@ public class ClassController {
     // /class?name=XXX  //request parameter
 
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.POST)   // HandlerAdaptor
+    @RequestMapping(method = RequestMethod.POST)   // HandlerAdaptor
     public ResponseEntity<String> createClass(@RequestBody @Valid final ClassDTO classData, final BindingResult bindingResult) {
         if (bindingResult.hasErrors() || !checkClassDataValidation(classData)) {
             return ResponseEntity.badRequest().build(); //400 at response header
@@ -56,14 +56,24 @@ public class ClassController {
     // RESTFUL API
     @RequestMapping(value = "/{classId}", method = RequestMethod.GET)
     public ResponseEntity<ClassModel> getClassStatus(@PathVariable(name = "classId") final String classId) {
-        //TODO: implement
-        return ResponseEntity.ok().body(classService.getClassById(classId));
+        final ClassModel classModel = classService.getClassById(classId);
+        if (classModel == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(classService.getClassById(classId));
+        }
     }
 
     @RequestMapping(value = "/{classId}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteClass(@PathVariable(name = "classId") final String classId) throws NoFoundException {
-        //TODO: implement
-        return ResponseEntity.ok().body(classService.deleteClassById(classId));
+    public ResponseEntity deleteClass(@PathVariable(name = "classId") final String classId) {
+        boolean noFound = false;
+        try {
+            classService.deleteClassById(classId);
+        } catch (NoFoundException ex) {
+            noFound = true;
+        }
+
+        return noFound ? ResponseEntity.notFound().build() : ResponseEntity.ok().build();
     }
 
 
