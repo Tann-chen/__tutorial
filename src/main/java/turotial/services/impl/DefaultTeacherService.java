@@ -26,9 +26,12 @@ public class DefaultTeacherService implements TeacherService {
                 .anyMatch(teacher->teacher.getName().equals(teacherName));
     }
 
+
+    // command + N open "generate"
+
     @Override
-    public Optional<TeacherModel> getStudentByName(String teacherName) {
-        return allTeachers
+    public Optional<TeacherModel> getTeacherByName(final String teacherName) {
+        return  allTeachers
                 .stream()
                 .filter(teacher->teacher.getName().equals(teacherName))
                 .findFirst();

@@ -1,30 +1,30 @@
 package turotial.services.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import turotial.NoFoundException;
 import turotial.dtos.ClassDTO;
 import turotial.models.*;
+import turotial.services.ClassRoomService;
 import turotial.services.ClassService;
-import java.util.HashMap;
+import turotial.services.StudentService;
+import turotial.services.TeacherService;
+
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class DefaultClassService implements ClassService {
 
-    private final static Map<String, ClassModel> recordedClasses = new HashMap<>();
+    private final static Map<String, ClassModel> recordedClasses = new ConcurrentHashMap<>();
 
-    private final DefaultClassRoomService classroomService;
-    private final DefaultStudentService studentService;
-    private final DefaultTeacherService teacherService;
+    private ClassRoomService classroomService;
+    private StudentService studentService;
+    private TeacherService teacherService;
 
-    public DefaultClassService(DefaultClassRoomService classroomService,
-                               DefaultStudentService studentService,
-                               DefaultTeacherService teacherService) {
-        this.classroomService = classroomService;
-        this.studentService = studentService;
-        this.teacherService = teacherService;
-    }
 
     @Override
     public ClassModel addClass(final ClassDTO classDTO) {
@@ -49,21 +49,18 @@ public class DefaultClassService implements ClassService {
 
 
     @Override
-
     public ClassModel getClassById(String classId) {
         return recordedClasses.get(classId);
     }
 
     @Override
-    public void closeClass(String classId) throws NoFoundException{
-        ClassModel TargetClass = recordedClasses.get(classId);
-        if (TargetClass == null) {
+    public void closeClass(String classId) throws NoFoundException {
+        ClassModel targetClass = recordedClasses.get(classId);
+        if (targetClass == null) {
             throw new NoFoundException(classId);
-        } else {
-            TargetClass.setStatus(ClassStatus.CLOSED); // Do I need to update map ?
-            recordedClasses.put(classId,TargetClass);
         }
 
+        targetClass.setStatus(ClassStatus.CLOSED);
     }
 
     @Override
@@ -77,6 +74,21 @@ public class DefaultClassService implements ClassService {
         if (removed == null) {
             throw new NoFoundException(classId);
         }
+    }
+
+    @Autowired
+    public void setClassroomService(@Qualifier("defaultClassRoomService") ClassRoomService classroomService) {
+        this.classroomService = classroomService;
+    }
+
+    @Autowired
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
+    @Autowired
+    public void setTeacherService(TeacherService teacherService) {
+        this.teacherService = teacherService;
     }
 }
 
