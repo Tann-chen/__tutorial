@@ -1,4 +1,4 @@
-package turotial;
+package turotial.exceptions;
 
 public class NoFoundException extends Exception {
     public NoFoundException(String classId){

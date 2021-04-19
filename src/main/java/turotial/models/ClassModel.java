@@ -5,6 +5,7 @@ import turotial.services.ClassService;
 
 import java.util.List;
 import java.util.UUID;
+
 @Component
 public class ClassModel {
 
@@ -12,14 +13,19 @@ public class ClassModel {
     private TeacherModel teacher;
     private ClassRoomModel classRoom;
     private List<StudentModel> students;
-    private ClassService.ClassStatus status = ClassService.ClassStatus.READY;
+    private ClassService.ClassStatus status;
 
     public ClassModel() {
         this.classId = UUID.randomUUID().toString();
+        this.status = ClassService.ClassStatus.READY;
     }
 
     public String getClassId() {
         return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
     }
 
     public TeacherModel getTeacher() {
@@ -46,7 +52,16 @@ public class ClassModel {
         this.students = students;
     }
 
-    public ClassService.ClassStatus getStatus() { return status; }
+    public ClassService.ClassStatus getStatus() {
+        return status;
+    }
 
-    public void setStatus(ClassService.ClassStatus status) { this.status = status; }
+    public void setStatus(ClassService.ClassStatus status) {
+        this.status = status;
+    }
+
+    public void setStatus(String status) {
+        this.status = ClassService.ClassStatus.valueOf(status);
+    }
+
 }
