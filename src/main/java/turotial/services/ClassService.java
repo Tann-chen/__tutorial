@@ -5,11 +5,13 @@ import turotial.NoFoundException;
 import turotial.dtos.ClassDTO;
 import turotial.models.ClassModel;
 
+import java.util.Optional;
+
 public interface ClassService {
     ClassModel addClass(ClassDTO classDTO);
 
-    @Nullable // mark the result is nullable
-    ClassModel getClassById(String classId);
+//    @Nullable // mark the result is nullable
+    Optional<ClassModel> getClassById(String classId);
 
     void closeClass(String classId) throws NoFoundException;
 

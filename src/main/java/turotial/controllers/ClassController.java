@@ -14,6 +14,7 @@ import turotial.services.StudentService;
 import turotial.services.TeacherService;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 //@Controller + @ResponseBody
@@ -56,12 +57,8 @@ public class ClassController {
     // RESTFUL API
     @RequestMapping(value = "/{classId}", method = RequestMethod.GET)
     public ResponseEntity<ClassModel> getClassStatus(@PathVariable(name = "classId") final String classId) {
-        final ClassModel classModel = classService.getClassById(classId);
-        if (classModel == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok().body(classService.getClassById(classId));
-        }
+        final Optional<ClassModel> classModel = classService.getClassById(classId);
+        return ResponseEntity.of(classModel);
     }
 
     @RequestMapping(value = "/{classId}", method = RequestMethod.DELETE)
@@ -75,6 +72,7 @@ public class ClassController {
 
         return noFound ? ResponseEntity.notFound().build() : ResponseEntity.ok().build();
     }
+
 
 
     private boolean checkClassDataValidation(final ClassDTO classDTO) {

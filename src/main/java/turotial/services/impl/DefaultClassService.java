@@ -2,7 +2,6 @@ package turotial.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import turotial.NoFoundException;
 import turotial.dtos.ClassDTO;
@@ -14,6 +13,7 @@ import turotial.services.TeacherService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
@@ -49,8 +49,8 @@ public class DefaultClassService implements ClassService {
 
 
     @Override
-    public ClassModel getClassById(String classId) {
-        return recordedClasses.get(classId);
+    public Optional<ClassModel> getClassById(String classId) {
+        return Optional.ofNullable(recordedClasses.get(classId));
     }
 
     @Override
