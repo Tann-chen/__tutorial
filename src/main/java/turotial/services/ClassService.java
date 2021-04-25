@@ -1,7 +1,7 @@
 package turotial.services;
 
 import org.springframework.lang.Nullable;
-import turotial.NoFoundException;
+import turotial.exceptions.NoFoundException;
 import turotial.dtos.ClassDTO;
 import turotial.models.ClassModel;
 

@@ -3,7 +3,7 @@ package turotial.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import turotial.NoFoundException;
+import turotial.exceptions.NoFoundException;
 import turotial.dtos.ClassDTO;
 import turotial.models.*;
 import turotial.services.ClassRoomService;
