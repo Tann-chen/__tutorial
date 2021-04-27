@@ -1,6 +1,5 @@
 package turotial.daos;
 
-import turotial.models.StudentModel;
 import turotial.models.TeacherModel;
 
 import java.util.Optional;

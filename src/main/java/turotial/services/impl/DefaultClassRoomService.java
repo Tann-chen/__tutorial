@@ -14,12 +14,6 @@ public class DefaultClassRoomService implements ClassRoomService {
 
     private static final List<ClassRoomModel> allClassRooms = new ArrayList<ClassRoomModel>();
 
-    static {
-        allClassRooms.add(new ClassRoomModel("CA-001"));
-        allClassRooms.add(new ClassRoomModel("CA-002"));
-        allClassRooms.add(new ClassRoomModel("CA-003"));
-    }
-
 
     @Override
     public boolean isValidClassRoomService(final String classRoomNo) {

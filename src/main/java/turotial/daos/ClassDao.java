@@ -1,14 +1,12 @@
 package turotial.daos;
 
+import org.springframework.data.repository.CrudRepository;
 import turotial.models.ClassModel;
+import turotial.services.ClassService;
 
-public interface ClassDao {
+import java.util.List;
 
-    ClassModel getClassById(String classId);
+public interface ClassDao extends CrudRepository<ClassModel, Integer> {
 
-    boolean isExistClass(String classId);
-
-    void deleteClassById(String classId);
-
-    void updateClassStatus(String status, String classId);
+    List<ClassModel> findByStatusEquals(ClassService.ClassStatus status);
 }

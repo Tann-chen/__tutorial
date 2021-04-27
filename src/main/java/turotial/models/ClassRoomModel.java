@@ -1,20 +1,19 @@
 package turotial.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "classroom")
 public class ClassRoomModel {
-    private String classRoomNo;
+    @Id
+    @Column(name = "no")
+    private Integer classRoomNo;
 
-    public ClassRoomModel() {
-    }
-
-    public ClassRoomModel(String classRoomNo) {
-        this.classRoomNo = classRoomNo;
-    }
-
-    public String getClassRoomNo() {
+    public Integer getClassRoomNo() {
         return classRoomNo;
     }
 
-    public void setClassRoomNo(String classRoomNo) {
+    public void setClassRoomNo(Integer classRoomNo) {
         this.classRoomNo = classRoomNo;
     }
 }

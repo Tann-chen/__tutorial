@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import turotial.JdbcConfiguration;
 import turotial.exceptions.NoFoundException;
 import turotial.dtos.ClassDTO;
 import turotial.models.ClassModel;
@@ -52,7 +51,7 @@ public class ClassController {
 
         final ClassModel classRecord = classService.addClass(classData);
 
-        return ResponseEntity.ok().body(classRecord.getClassId());
+        return ResponseEntity.ok().body(classRecord.getClassId().toString());
     }
 
     // RESTFUL API

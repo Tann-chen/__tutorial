@@ -1,16 +1,28 @@
 package turotial.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "student")
 public class StudentModel {
 
-    private String id;
-    private String name;
-    private int score;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    public StudentModel() {
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "score")
+    private Double score;
+
+    public Integer getId() {
+        return id;
     }
 
-    public StudentModel(String name) {
-        this.name = name;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -21,19 +33,11 @@ public class StudentModel {
         this.name = name;
     }
 
-    public int getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Double score) {
         this.score = score;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }

@@ -42,7 +42,7 @@ public class DefaultClassService implements ClassService {
             newClass.getStudents().add(student);
         }
 
-        recordedClasses.put(newClass.getClassId(), newClass);
+        recordedClasses.put(newClass.getClassId().toString(), newClass);
         return newClass;
     }
 
