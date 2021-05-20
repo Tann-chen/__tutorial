@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import turotial.JdbcConfiguration;
 import turotial.exceptions.NoFoundException;
 import turotial.dtos.ClassDTO;
 import turotial.models.ClassModel;
@@ -15,6 +14,7 @@ import turotial.services.StudentService;
 import turotial.services.TeacherService;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 //@Controller + @ResponseBody
@@ -51,18 +51,14 @@ public class ClassController {
 
         final ClassModel classRecord = classService.addClass(classData);
 
-        return ResponseEntity.ok().body(classRecord.getClassId());
+        return ResponseEntity.ok().body(classRecord.getClassId().toString());
     }
 
     // RESTFUL API
     @RequestMapping(value = "/{classId}", method = RequestMethod.GET)
     public ResponseEntity<ClassModel> getClassStatus(@PathVariable(name = "classId") final String classId) {
-        final ClassModel classModel = classService.getClassById(classId);
-        if (classModel == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok().body(classService.getClassById(classId));
-        }
+        final Optional<ClassModel> classModel = classService.getClassById(classId);
+        return ResponseEntity.of(classModel);
     }
 
     @RequestMapping(value = "/{classId}", method = RequestMethod.DELETE)
@@ -76,6 +72,7 @@ public class ClassController {
 
         return noFound ? ResponseEntity.notFound().build() : ResponseEntity.ok().build();
     }
+
 
 
     private boolean checkClassDataValidation(final ClassDTO classDTO) {

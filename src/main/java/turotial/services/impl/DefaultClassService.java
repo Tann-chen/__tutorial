@@ -13,6 +13,7 @@ import turotial.services.TeacherService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
@@ -41,15 +42,15 @@ public class DefaultClassService implements ClassService {
             newClass.getStudents().add(student);
         }
 
-        recordedClasses.put(newClass.getClassId(), newClass);
+        recordedClasses.put(newClass.getClassId().toString(), newClass);
         return newClass;
     }
 
 
 
     @Override
-    public ClassModel getClassById(String classId) {
-        return recordedClasses.get(classId);
+    public Optional<ClassModel> getClassById(String classId) {
+        return Optional.ofNullable(recordedClasses.get(classId));
     }
 
     @Override

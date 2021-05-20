@@ -1,30 +1,43 @@
 package turotial.models;
 
-import org.springframework.stereotype.Component;
 import turotial.services.ClassService;
 
+import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
-@Component
+@Entity
+@Table(name = "class")
 public class ClassModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer classId;
 
-    private String classId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     private TeacherModel teacher;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "classroom_no", referencedColumnName = "no")
     private ClassRoomModel classRoom;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "class2student",
+            joinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id")
+    )
     private List<StudentModel> students;
+
+    @Column(name = "status", nullable = false, columnDefinition = "varchar(10) default 'READY'")
+    @Enumerated(value = EnumType.STRING)
     private ClassService.ClassStatus status;
 
-    public ClassModel() {
-        this.classId = UUID.randomUUID().toString();
-        this.status = ClassService.ClassStatus.READY;
-    }
 
-    public String getClassId() {
+    public Integer getClassId() {
         return classId;
     }
 
-    public void setClassId(String classId) {
+    public void setClassId(Integer classId) {
         this.classId = classId;
     }
 
@@ -59,9 +72,4 @@ public class ClassModel {
     public void setStatus(ClassService.ClassStatus status) {
         this.status = status;
     }
-
-    public void setStatus(String status) {
-        this.status = ClassService.ClassStatus.valueOf(status);
-    }
-
 }

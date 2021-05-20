@@ -13,12 +13,6 @@ public class DefaultTeacherService implements TeacherService {
 
     private static final List<TeacherModel> allTeachers = new ArrayList<TeacherModel>();
 
-    static {
-        allTeachers.add(new TeacherModel("hana"));
-        allTeachers.add(new TeacherModel("hana1"));
-        allTeachers.add(new TeacherModel("hana2"));
-    }
-
 
     public boolean isValidTeacher(String teacherName) {
         return allTeachers

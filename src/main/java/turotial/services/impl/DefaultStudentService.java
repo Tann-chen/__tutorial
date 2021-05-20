@@ -13,13 +13,6 @@ public class DefaultStudentService implements StudentService {
 
     private static final List<StudentModel> allStudents = new ArrayList<StudentModel>();
 
-    static {
-        allStudents.add(new StudentModel("zhangsan"));
-        allStudents.add(new StudentModel("lisi"));
-        allStudents.add(new StudentModel("wangwu"));
-        allStudents.add(new StudentModel("zhaoliu"));
-        allStudents.add(new StudentModel("chenqi"));
-    }
 
     @Override
     public Optional<StudentModel> getStudentByName(String studentName) {
